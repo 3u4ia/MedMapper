@@ -1,4 +1,4 @@
-/* --- Standard Styles (from previous steps) --- */
+/* --- Global Styles --- */
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +15,7 @@ body {
     padding-bottom: 50px;
 }
 
+/* --- Header Section --- */
 .header {
     width: 100%;
     display: flex;
@@ -25,8 +26,16 @@ body {
     margin-bottom: 20px;
 }
 
-.logo { max-height: 80px; width: auto; }
-.container { width: 95%; max-width: 700px; }
+.logo {
+    max-height: 80px;
+    width: auto;
+}
+
+/* --- Layout Containers --- */
+.container {
+    width: 95%;
+    max-width: 700px;
+}
 
 .content-box {
     padding: 20px;
@@ -36,6 +45,57 @@ body {
     border: 1px solid #e0e0e0;
 }
 
+/* --- Image Upload Previews (index.html) --- */
+.preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.preview-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* --- Buttons & Actions --- */
+.action-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.btn {
+    display: inline-block;
+    height: 45px;
+    padding: 0 24px;
+    background-color: #2a9d8f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    width: 250px;
+    transition: background 0.2s, transform 0.1s;
+    text-align: center;
+    line-height: 45px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #21867a;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* --- Agenda Cards (agenda.html) --- */
 .agenda-section {
     display: flex;
     flex-direction: column;
@@ -50,34 +110,38 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-.day-card h3 { color: #264653; margin-bottom: 5px; }
-.day-card p { color: #555; font-size: 0.95rem; }
-
-.btn {
-    display: inline-block;
-    height: 45px;
-    padding: 0 24px;
-    background-color: #2a9d8f;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    width: 250px;
-    text-align: center;
+.day-card h3 {
+    color: #264653;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
 }
 
-/* --- PRINT SPECIFIC STYLES --- */
-.print-only { display: none; }
+.day-card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
 
+/* --- Helper Classes --- */
+.print-only {
+    display: none;
+}
+
+/* --- PRINT LOGIC --- */
 @media print {
+    @page {
+        margin: 1cm; /* Adjusts physical paper margins */
+    }
+
     body {
         background-color: white !important;
         padding: 0;
+        display: block; /* Removes flex centering for better printing */
     }
 
-    .no-print, .header {
-        display: none !important; /* Hide header and buttons on paper */
+    /* Hide UI elements that aren't needed on paper */
+    .no-print, .header, .action-area {
+        display: none !important;
     }
 
     .container {
@@ -90,23 +154,29 @@ body {
         text-align: center;
         margin-bottom: 20px;
         color: #264653;
+        font-size: 24px;
+        border-bottom: 2px solid #2a9d8f;
+        padding-bottom: 10px;
     }
 
     .agenda-section {
-        gap: 5px; /* Tighten gap for paper */
+        gap: 5px; /* Compact layout to ensure 7 days fit on one sheet */
     }
 
     .day-card {
-        border: 1px solid #ccc;
-        border-left: 10px solid #2a9d8f;
-        box-shadow: none; /* Shadows look blurry when printed */
-        page-break-inside: avoid; /* Don't split a single day across two pages */
-        margin-bottom: 5px;
+        border: 1px solid #ddd;
+        border-left: 12px solid #2a9d8f; /* Thicker bar looks better on paper */
+        box-shadow: none; /* Avoids blurry gray blobs in print */
+        page-break-inside: avoid; /* Prevents a day from being split between two pages */
         padding: 10px;
+        margin-bottom: 5px;
     }
 
-    /* Set the margins for the physical paper */
-    @page {
-        margin: 1cm;
+    .day-card h3 {
+        font-size: 1rem;
+    }
+
+    .day-card p {
+        font-size: 0.9rem;
     }
 }

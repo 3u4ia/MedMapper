@@ -27,9 +27,9 @@ generateAgendaBtn.addEventListener('click', async () => {
         return;
     }
 
-    const YOUR_ENDPOINT = 'localhost:8080/upload';
+    const YOUR_ENDPOINT = 'http://localhost:8080/upload';
     const formData = new FormData();
-    selectedFiles.forEach((file, index) => formData.append(`file_${index}`, file));
+    selectedFiles.forEach((file, index) => formData.append("files", file));
 
     try {
         generateAgendaBtn.innerText = "Processing...";
