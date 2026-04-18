@@ -24,7 +24,7 @@ export const uploadFile = async (files) => {
 
 	// Sends the prompt along with the images to gemini AI to send something
 	const response1 = await ai.models.generateContent({
-		model: "gemini-2.0-flash",
+		model: "gemini-1.5-pro",
 		contents: [
 			{
 				role: "user",
