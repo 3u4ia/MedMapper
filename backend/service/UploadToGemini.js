@@ -20,18 +20,19 @@ export const uploadFile = async (files) => {
 	}
 
 	// maps the body array of json file paths to turn it into an array of inlineData json's
-	const inlineDataArray = files.map((file) => fileToGenerativePart(file.buffer, file.mimetype))
+	const imageParts = files.map((file) => fileToGenerativePart(file.buffer, file.mimetype))
 
 	// Sends the prompt along with the images to gemini AI to send something
 	const response1 = await ai.models.generateContent({
-		model: "gemini-1.5-pro",
+		model: "gemini-1.5-flash",
 		contents: [
 			{
 				role: "user",
 				parts: [
 					{
 						text: "Make a weekly schedule for this image/images of the label of a medicine bottle and structure them in json under the format [{'medicineName': medicineName, 'Sunday': [timesToTakeMeds], 'Monday': [timesToTakeMeds], 'Tuesday': [timesToTakeMeds], 'Wednesday': [timesToTakeMeds], 'Thursday': [timesToTakeMeds], 'Friday': [timesToTakeMeds], 'Saturday': [timesToTakeMeds]"
-					}
+					},
+                    ...imageParts
 				]
 			}
 		]
