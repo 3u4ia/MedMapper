@@ -27,7 +27,7 @@ generateAgendaBtn.addEventListener('click', async () => {
         return;
     }
 
-    const YOUR_ENDPOINT = 'https://your-api-endpoint.com/upload';
+    const YOUR_ENDPOINT = 'localhost:8080/upload';
     const formData = new FormData();
     selectedFiles.forEach((file, index) => formData.append(`file_${index}`, file));
 

@@ -1,3 +1,4 @@
+/* --- Standard Styles (from previous steps) --- */
 * {
     margin: 0;
     padding: 0;
@@ -24,15 +25,8 @@ body {
     margin-bottom: 20px;
 }
 
-.logo {
-    max-height: 80px;
-    width: auto;
-}
-
-.container {
-    width: 95%;
-    max-width: 600px;
-}
+.logo { max-height: 80px; width: auto; }
+.container { width: 95%; max-width: 700px; }
 
 .content-box {
     padding: 20px;
@@ -42,29 +36,22 @@ body {
     border: 1px solid #e0e0e0;
 }
 
-/* Previews */
-.preview-container {
+.agenda-section {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.preview-container img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.day-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 6px solid #2a9d8f;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Buttons */
-.action-area {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 15px;
-}
+.day-card h3 { color: #264653; margin-bottom: 5px; }
+.day-card p { color: #555; font-size: 0.95rem; }
 
 .btn {
     display: inline-block;
@@ -76,34 +63,50 @@ body {
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    font-size: 16px;
     width: 250px;
-    transition: background 0.2s;
+    text-align: center;
 }
 
-.btn:hover { background-color: #21867a; }
+/* --- PRINT SPECIFIC STYLES --- */
+.print-only { display: none; }
 
-/* Agenda Cards */
-.agenda-section {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+@media print {
+    body {
+        background-color: white !important;
+        padding: 0;
+    }
 
-.day-card {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 6px solid #2a9d8f;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
+    .no-print, .header {
+        display: none !important; /* Hide header and buttons on paper */
+    }
 
-.day-card h3 {
-    color: #264653;
-    margin-bottom: 8px;
-}
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
 
-.day-card p {
-    color: #555;
-    font-size: 0.95rem;
+    .print-only {
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #264653;
+    }
+
+    .agenda-section {
+        gap: 5px; /* Tighten gap for paper */
+    }
+
+    .day-card {
+        border: 1px solid #ccc;
+        border-left: 10px solid #2a9d8f;
+        box-shadow: none; /* Shadows look blurry when printed */
+        page-break-inside: avoid; /* Don't split a single day across two pages */
+        margin-bottom: 5px;
+        padding: 10px;
+    }
+
+    /* Set the margins for the physical paper */
+    @page {
+        margin: 1cm;
+    }
 }
